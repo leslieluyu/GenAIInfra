@@ -13,6 +13,7 @@ spec:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.port }}
       protocol: TCP
+      nodePort: {{ .Values.service.nodePort}}
       name: chatqna
   selector:
     {{- include "chatqna.selectorLabels" . | nindent 4 }}
