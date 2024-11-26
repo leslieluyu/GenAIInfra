@@ -10,6 +10,7 @@ helm install chatqna . \
 --set reranking-usvc.nodeSelector.${LABEL} \
 --set retriever-usvc.nodeSelector.${LABEL} \
 --set tgi.nodeSelector.${LABEL} \
+--set vllm.nodeSelector.${LABEL} \
 --set nodeSelector.${LABEL} \
 --create-namespace \
 --namespace ${NS} \
