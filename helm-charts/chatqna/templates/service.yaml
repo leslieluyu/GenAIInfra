@@ -14,6 +14,7 @@ spec:
       targetPort: {{ .Values.port }}
       protocol: TCP
       name: chatqna
+      nodePort: 30888
   selector:
     {{- include "chatqna.selectorLabels" . | nindent 4 }}
     app: {{ include "chatqna.fullname" . }}

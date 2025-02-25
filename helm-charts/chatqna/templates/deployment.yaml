@@ -80,6 +80,12 @@ spec:
             - name: LOGFLAG
               value: {{ .Values.LOGFLAG | quote }}
             {{- end }}
+            {{- if .Values.ENABLE_OPEA_TELEMETRY }}
+            - name: ENABLE_OPEA_TELEMETRY
+              value: {{ .Values.ENABLE_OPEA_TELEMETRY | quote }}
+            {{- end }}
+            - name: TELEMETRY_ENDPOINT
+              value: ""
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
