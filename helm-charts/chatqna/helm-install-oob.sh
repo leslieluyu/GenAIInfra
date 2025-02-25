@@ -1,5 +1,5 @@
 helm install chatqna . \
---set global.HUGGINGFACEHUB_API_TOKEN=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 \
+--set global.HUGGINGFACEHUB_API_TOKEN="" \
 --set chatqna-ui.nodeSelector.${LABEL} \
 --set tei.nodeSelector.${LABEL} \
 --set teirerank.nodeSelector.${LABEL} \
