@@ -49,7 +49,7 @@ autoscaling:
 tgi:
   LLM_MODEL_ID: Intel/neural-chat-7b-v3-3
   MAX_BATCH_SIZE: "1"
-  MAX_INPUT_LENGTH: "2048"
+  MAX_INPUT_LENGTH: "2500"
   MAX_TOTAL_TOKENS: "4096"
 # disable guardrails-usvc by default
 # See guardrails-values.yaml for guardrail related options
