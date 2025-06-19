@@ -1,5 +1,5 @@
-helm install chatqna . \
---set global.HUGGINGFACEHUB_API_TOKEN="" \
+helm upgrade --install chatqna . \
+--set global.HUGGINGFACEHUB_API_TOKEN=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 \
 --set chatqna-ui.nodeSelector.${LABEL} \
 --set tei.nodeSelector.${LABEL} \
 --set teirerank.nodeSelector.${LABEL} \
@@ -7,10 +7,15 @@ helm install chatqna . \
 --set embedding-usvc.nodeSelector.${LABEL} \
 --set llm-uservice.nodeSelector.${LABEL} \
 --set redis-vector-db.nodeSelector.${LABEL} \
+--set milvus.nodeSelector.${LABEL} \
+--set minio.nodeSelector.${LABEL} \
+--set etcd.nodeSelector.${LABEL} \
+--set nginx.nodeSelector.${LABEL} \
 --set reranking-usvc.nodeSelector.${LABEL} \
 --set retriever-usvc.nodeSelector.${LABEL} \
 --set tgi.nodeSelector.${LABEL} \
 --set vllm.nodeSelector.${LABEL} \
+--set tei-gaudi.nodeSelector.${TEILABEL} \
 --set nodeSelector.${LABEL} \
 --create-namespace \
 --namespace ${NS} \

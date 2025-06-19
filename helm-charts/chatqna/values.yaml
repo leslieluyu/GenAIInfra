@@ -12,7 +12,7 @@ image:
   # Uncomment the following line to set desired image pull policy if needed, as one of Always, IfNotPresent, Never.
   # pullPolicy: ""
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "1.3"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -72,26 +72,68 @@ vllm:
   shmSize: 128Gi
   VLLM_TORCH_PROFILER_DIR: "/tmp/vllm_profile"
 data-prep:
+  # the following are for redis-vector-db
   DATAPREP_BACKEND: "REDIS"
   INDEX_NAME: "rag-redis"
+  # the following are for qdrant db
+  COLLECTION_NAME: "rag-qdrant"
+  QDRANT_PORT: 6333
+  # the following are for milvus db
+  MILVUS_PORT: 19530
 retriever-usvc:
+  # the following are for redis-vector-db
   RETRIEVER_BACKEND: "REDIS"
   INDEX_NAME: "rag-redis"
+  # the following are for qdrant db
+  QDRANT_INDEX_NAME: "rag-qdrant"
+  QDRANT_PORT: 6333
+  # the following are for milvus db
+  MILVUS_PORT: 19530
 
 
 # disable guardrails by default
 # See guardrails-values.yaml for guardrail related options
 guardrails-usvc:
   enabled: false
-tgi-guardrails:
+vllm-guardrails:
   enabled: false
 
 # reranking
 teirerank:
   enabled: true
-# vector db choice, redis by default.
+
+# vector db choice
+# redis by default.
 redis-vector-db:
   enabled: true
+# qdrant, disabled by default
+qdrant:
+  enabled: false
+  tag: "v1.13.1"
+  config:
+    cluster:
+      enabled: false
+milvus:
+  enabled: false
+  # Milvus config for standalone mode with no PVC which has minimum requirements for the K8s cluster.
+  # Check https://github.com/zilliztech/milvus-helm/tree/milvus-4.2.12/charts/milvus for more production level configuration.
+  cluster:
+    enabled: false
+  etcd:
+    replicaCount: 1
+    persistence:
+      enabled: false
+  pulsar:
+    enabled: false
+  minio:
+    mode: standalone
+    persistence:
+      enabled: false
+  standalone:
+    persistence:
+      enabled: false
+
+
 # Microservice layer, disabled by default
 llm-uservice:
   enabled: false
@@ -112,8 +154,11 @@ nginx:
 chatqna-ui:
   image:
     repository: opea/chatqna-ui
-    tag: "latest"
+    tag: "1.3"
   containerPort: "5173"
+
+dashboard:
+  prefix: "OPEA ChatQnA"
 
 global:
   http_proxy: ""
@@ -129,11 +174,11 @@ global:
   # modelUseHostPath: /mnt/opea-models
   # modelUsePVC: model-volume
 
-  # Install Prometheus serviceMonitors for service components
+  # Prometheus monitoring + Grafana dashboard(s) for service components?
   monitoring: false
+
+  # Prometheus/Grafana namespace for Dashboard installation
+  prometheusNamespace: monitoring
 
   # Prometheus Helm install release name needed for serviceMonitors
   prometheusRelease: prometheus-stack
-ENABLE_OPEA_TELEMETRY: "false"
-TELEMETRY_ENDPOINT: ""
-ANOTHER: "test"

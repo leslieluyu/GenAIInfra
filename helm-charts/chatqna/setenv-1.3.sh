@@ -1,0 +1,11 @@
+ export MODELDIR="/mnt/models"
+ export IMGREPO="opea"
+ export IMGVER="1.3"
+ export NS="benchmark-yulu"
+ export LABEL="bench=v1.3"
+#  export TEILABEL="teilabel=tei-gaudi"
+ export TEILABEL="tei=ingest"
+#  export LABEL="bench=tei-gaudi"
+#  export TEILABEL="bench=v1.3"
+ export DEMO_IMGVER="v1.3"
+

@@ -4,12 +4,12 @@
 
 
 replicaCount: 1
+# LOGFLAG: "True"
 image:
   repository: opea/chatqna-without-rerank
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  # tag: "1.2_fix_telemetry"
-  tag: "latest"
+  tag: "1.2_fix_telemetry_nogil"
 
 port: 8888
 service:
@@ -75,15 +75,15 @@ vllm:
     initialDelaySeconds: 5
     periodSeconds: 5
     timeoutSeconds: 1
-    failureThreshold: 360
+    failureThreshold: 180
   readinessProbe:
     initialDelaySeconds: 5
     periodSeconds: 5
     timeoutSeconds: 1
-  # livenessProbe:
-  #   initialDelaySeconds: 5
-  #   periodSeconds: 5
-  #   timeoutSeconds: 1
+  livenessProbe:
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 1
 
   PT_HPU_ENABLE_LAZY_COLLECTIVES: "true"
   OMPI_MCA_btl_vader_single_copy_mechanism: "none"
@@ -144,6 +144,7 @@ retriever-usvc:
     tag: "${IMGVER}"
   port: 7000
   evenly_distributed: True
+  # LOGFLAG: "True"
   readinessProbe: ""
 embedding-usvc:
   image:
